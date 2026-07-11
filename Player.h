@@ -8,10 +8,10 @@ private:
     sf::Texture texture;
 
     float bulletSpeed = 0.8f;
+    std::vector<sf::RectangleShape> bullets;
     
 public:
     sf::Sprite sprite;
-    std::vector<sf::RectangleShape> bullets;
 
 public:
     void Initialize();
