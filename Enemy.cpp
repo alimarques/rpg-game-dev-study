@@ -3,7 +3,11 @@
 
 void Enemy::Initialize()
 {
+    boundingRectangle.setFillColor(sf::Color::Transparent);
+    boundingRectangle.setOutlineColor(sf::Color::Red);
+    boundingRectangle.setOutlineThickness(1);
     
+    size = sf::Vector2i(64, 64);
 }
 
 void Enemy::Load()
@@ -12,17 +16,18 @@ void Enemy::Load()
     {
         std::cout << "Enemy carregado com sucesso" << std::endl;
         sprite.setTexture(texture);
-        sprite.setPosition(sf::Vector2f(400, 200));
 
-        int pxUnit = 64;
         int xIndex = 0;
         int yIndex = 0;
-        sf::Vector2f scale = sf::Vector2f(2, 2);
 
         // Pegar um pedaço do spritesheet
         // (xIndex, yIndex, largura, altura)
-        sprite.setTextureRect(sf::IntRect(pxUnit * xIndex, pxUnit * yIndex, pxUnit, pxUnit));
-        sprite.scale(scale);
+        sprite.setTextureRect(sf::IntRect(xIndex * size.x, yIndex * size.y, size.x, size.y));
+        sprite.setPosition(sf::Vector2f(400, 200));
+
+        sprite.scale(sf::Vector2f(2, 2));
+        
+        boundingRectangle.setSize(sf::Vector2f(size.x * sprite.getScale().x, size.y * sprite.getScale().y));
     }
     else
     {
@@ -32,10 +37,11 @@ void Enemy::Load()
 
 void Enemy::Update()
 {
-    
+    boundingRectangle.setPosition(sprite.getPosition());
 }
 
 void Enemy::Draw(sf::RenderWindow& window)
 {
     window.draw(sprite);
+    window.draw(boundingRectangle);
 }
