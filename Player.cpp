@@ -82,6 +82,11 @@ void Player::Update(Enemy& enemy)
     }
 
     boundingRectangle.setPosition(sprite.getPosition());
+
+    if(Math::CheckRectCollision(sprite.getGlobalBounds(), enemy.sprite.getGlobalBounds()))
+    {
+        std::cout << "Colisao do player com inimigo" << std::endl;
+    }
 }
 
 void Player::Draw(sf::RenderWindow& window)
